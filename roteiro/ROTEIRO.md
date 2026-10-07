@@ -316,7 +316,7 @@ Abra as três telas em **janelas lado a lado**. O celular pode servir como totem
 | 1 | `/totem` | Toque em **Toque para começar** | Cardápio com as abas Lanches, Crepes, Bebidas e Sobremesas |
 | 2 | `/totem` | Em **Lanches**, adicione **Hambúrguer clássico** duas vezes e **Batata frita** | Carrinho com 3 itens e total `R$ 64,70` |
 | 3 | `/totem` | Em **Bebidas**, adicione **Milk shake de chocolate** | Carrinho com 4 itens e total `R$ 83,60` |
-| 4 | `/totem` | Toque em **Finalizar pedido** | Tela de confirmação com o número `001` em amarelo, que some após 8 segundos |
+| 4 | `/totem` | Toque em **Revisar pedido** e depois em **Confirmar pedido** | Tela de revisão com os itens e o total; após confirmar, tela de confirmação com o número `001` em amarelo, que some após 8 segundos |
 | 5 | `/totem` | Faça um segundo pedido: **Crepe de chocolate com morango** e **Sundae de morango** | Pedido `002`, total `R$ 34,80` |
 | 6 | `/cozinha` | Veja a fila | Pedidos `001` e `002` com o estado **Recebido**, nessa ordem |
 | 7 | `/cozinha` | Clique em **Iniciar** | O pedido `001` passa para **Preparando** |

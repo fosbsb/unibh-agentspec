@@ -2,7 +2,7 @@
 
 Fonte única de verdade do visual do totem. Toda tela, componente e estilo do projeto segue este documento. Os tokens daqui viram variáveis CSS em `app/static/css/tokens.css`.
 
-**Versão:** 1.0.0
+**Versão:** 1.1.0
 
 ---
 
@@ -20,7 +20,7 @@ Fonte única de verdade do visual do totem. Toda tela, componente e estilo do pr
 2. **Uma ação principal por tela.** O botão mais importante é sempre laranja e sempre o maior.
 3. **Cor nunca é o único sinal.** Todo estado também tem texto ou ícone.
 4. **Contraste alto.** O fundo é preto. O texto é branco ou amarelo.
-5. **Texto curto, em português do Brasil.** Verbos no imperativo nos botões: "Adicionar", "Finalizar pedido".
+5. **Texto curto, em português do Brasil.** Verbos no imperativo nos botões: "Adicionar", "Revisar pedido", "Confirmar pedido".
 
 ---
 
@@ -149,7 +149,7 @@ Faixa fixa no topo com as categorias: Lanches, Crepes, Bebidas e Sobremesas. A a
 
 ### 6.4 Carrinho (totem)
 
-Barra fixa no rodapé com a quantidade de itens, o total em amarelo e o botão primário "Finalizar pedido". Cada linha do carrinho tem os botões "−" e "+" (80x80px) e o botão perigo "Remover".
+Barra fixa no rodapé com a quantidade de itens, o total em amarelo e o botão primário "Revisar pedido", que abre a tela de revisão (6.10). Cada linha do carrinho tem os botões "−" e "+" (80x80px) e o botão perigo "Remover".
 
 ### 6.5 Confirmação do pedido (totem)
 
@@ -175,6 +175,21 @@ Cartões de pedido em ordem de chegada, com número, itens, horário e selo de e
 ### 6.9 Mensagem de erro
 
 Faixa com fundo `--cor-superficie`, borda esquerda vermelha de 8px, ícone ⚠ e texto em `--cor-vermelho-claro`. Diz o que aconteceu e o que fazer: "Não foi possível enviar o pedido. Toque em Tentar de novo."
+
+### 6.10 Revisão do pedido (totem)
+
+Tela cheia, só de leitura, entre o carrinho e a confirmação. O pedido só é enviado quando o cliente toca em "Confirmar pedido".
+
+| Parte | Regra |
+|---|---|
+| Título | "Revise seu pedido", `--fonte-titulo`, laranja |
+| Linhas | Um cartão por item: emoji, quantidade e nome (`--fonte-produto`), preço unitário em `--cor-texto-suave` e subtotal da linha em `--fonte-preco`, amarelo |
+| Total | Cartão com "Total" e o valor em `--fonte-preco`, amarelo |
+| Voltar e editar | Botão secundário. Volta ao cardápio com o carrinho intacto |
+| Confirmar pedido | Botão primário, mesmo tamanho do "Voltar e editar". Envia o pedido e mostra "Aguarde…" enquanto envia |
+| Erro de envio | Faixa da seção 6.9 acima dos botões. O cliente permanece na revisão e o carrinho é mantido |
+
+A edição de quantidades continua só no carrinho do cardápio. O relógio de 30 segundos de inatividade vale também nesta tela.
 
 ---
 
@@ -237,3 +252,4 @@ Os 10 produtos usados na demonstração. O ícone é um emoji, sem arquivos de i
 | Versão | Mudança |
 |---|---|
 | 1.0.0 | Versão inicial: paleta preto, laranja, amarelo e vermelho, e cardápio de exemplo |
+| 1.1.0 | Tela de revisão do pedido (6.10). O botão da barra do carrinho passa de "Finalizar pedido" para "Revisar pedido" |
