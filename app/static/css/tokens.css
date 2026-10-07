@@ -1,0 +1,35 @@
+:root {
+  --cor-preto: #0D0D0D;
+  --cor-laranja: #FF7A00;
+  --cor-amarelo: #FFC20E;
+  --cor-vermelho: #D62828;
+
+  --cor-superficie: #1C1C1C;
+  --cor-superficie-alta: #2A2A2A;
+  --cor-borda: #3D3D3D;
+  --cor-texto: #FFFFFF;
+  --cor-texto-suave: #BDBDBD;
+  --cor-vermelho-claro: #FF5A5A;
+
+  --fonte-familia: "Inter", "Segoe UI", system-ui, sans-serif;
+  --fonte-base-totem: 24px;
+  --fonte-base-cozinha: 16px;
+  --fonte-titulo: 48px;
+  --fonte-produto: 28px;
+  --fonte-preco: 32px;
+  --fonte-pedido-totem: 160px;
+  --fonte-pedido-painel: 192px;
+  --fonte-pedido-lista: 72px;
+
+  --espaco-1: 8px;
+  --espaco-2: 16px;
+  --espaco-3: 24px;
+  --espaco-4: 32px;
+  --espaco-5: 48px;
+  --raio-botao: 20px;
+  --raio-cartao: 28px;
+  --sombra-cartao: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --toque-minimo: 80px;
+  --movimento-rapido: 150ms ease-out;
+  --movimento-normal: 300ms ease-out;
+}

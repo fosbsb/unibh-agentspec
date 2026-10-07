@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Totem de Autoatendimento</title>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/static/js/tailwind-config.js"></script>
+</head>
+<body class="tela-indice min-h-screen flex flex-col items-center justify-center gap-6 p-8">
+  <h1 class="t-titulo text-laranja">Totem de Autoatendimento</h1>
+  <p class="text-suave">Abra cada tela no dispositivo correspondente.</p>
+  <nav class="flex flex-col gap-4 w-full max-w-xl">
+    <a class="btn btn-primario no-underline" href="/totem">Totem (cliente)</a>
+    <a class="btn btn-secundario no-underline" href="/cozinha">Cozinha (atendente)</a>
+    <a class="btn btn-secundario no-underline" href="/painel">Painel (TV)</a>
+  </nav>
+</body>
+</html>

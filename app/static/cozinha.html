@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Cozinha</title>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/static/js/tailwind-config.js"></script>
+</head>
+<body class="tela-cozinha min-h-screen p-6 flex flex-col gap-4">
+  <header class="flex items-center justify-between gap-4">
+    <h1 class="t-titulo text-laranja m-0">Cozinha</h1>
+    <div id="summary" class="text-suave" aria-live="polite"></div>
+  </header>
+  <div id="error" class="faixa-erro hidden" role="alert"></div>
+  <p id="empty" class="hidden text-suave text-[24px]">Nenhum pedido na fila.</p>
+  <section id="queue" class="grid gap-4 content-start" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));" aria-label="Fila de pedidos"></section>
+  <script type="module" src="/static/js/cozinha.js"></script>
+</body>
+</html>

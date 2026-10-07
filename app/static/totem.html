@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Totem</title>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/static/js/tailwind-config.js"></script>
+</head>
+<body class="tela-totem h-screen overflow-hidden">
+  <main id="idle" class="h-full flex flex-col items-center justify-center gap-10 p-10 text-center">
+    <div class="text-[160px] leading-none" aria-hidden="true">🍔</div>
+    <h1 class="t-titulo text-laranja">Faça seu pedido aqui</h1>
+    <div id="idle-error" class="faixa-erro hidden w-full max-w-3xl" role="alert"></div>
+    <button id="start" class="btn btn-primario w-full max-w-3xl min-h-[160px] text-[48px]">Toque para começar</button>
+  </main>
+
+  <main id="menu" class="hidden h-full flex flex-col gap-4 p-6">
+    <h1 class="t-titulo text-laranja text-center">Monte seu pedido</h1>
+    <div id="tabs" class="flex gap-4" role="tablist" aria-label="Categorias"></div>
+    <section id="grid" class="flex-1 overflow-y-auto grid grid-cols-2 gap-4 content-start p-1" aria-label="Cardápio"></section>
+    <section id="cart" class="hidden max-h-[40%] overflow-y-auto flex flex-col gap-3 cartao p-4" aria-label="Itens do pedido"></section>
+    <footer class="flex items-center gap-6 cartao p-4">
+      <div class="flex-1">
+        <div id="count" class="text-suave"></div>
+        <div id="total" class="t-preco"></div>
+      </div>
+      <button id="review-btn" class="btn btn-primario min-w-[420px]" disabled>Revisar pedido</button>
+    </footer>
+  </main>
+
+  <main id="review" class="hidden h-full flex flex-col gap-4 p-6">
+    <h1 class="t-titulo text-laranja text-center">Revise seu pedido</h1>
+    <section id="review-items" class="flex-1 overflow-y-auto flex flex-col gap-3 content-start" aria-label="Itens do pedido"></section>
+    <div class="cartao p-6 flex items-center justify-between">
+      <span class="t-produto">Total</span>
+      <span id="review-total" class="t-preco"></span>
+    </div>
+    <div id="error" class="faixa-erro hidden" role="alert"></div>
+    <footer class="flex gap-4">
+      <button id="back" class="btn btn-secundario flex-1">Voltar e editar</button>
+      <button id="confirm-btn" class="btn btn-primario flex-1">Confirmar pedido</button>
+    </footer>
+  </main>
+
+  <main id="confirm" class="hidden h-full flex flex-col items-center justify-center gap-8 p-10 text-center">
+    <p class="t-titulo">Pedido recebido!</p>
+    <div id="order-number" class="pedido-numero pedido-numero-totem" aria-live="polite"></div>
+    <p class="t-produto">Retire no balcão quando o painel chamar</p>
+  </main>
+
+  <script type="module" src="/static/js/totem.js"></script>
+</body>
+</html>

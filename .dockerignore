@@ -1,0 +1,9 @@
+.git
+.claude
+.playwright-mcp
+roteiro
+specs
+**/__pycache__
+.pytest_cache
+.venv
+.env

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Painel de pedidos</title>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/static/js/tailwind-config.js"></script>
+</head>
+<body class="tela-painel h-screen overflow-hidden flex flex-col">
+  <main class="flex-1 grid grid-cols-2 gap-8 p-10 min-h-0">
+    <section class="cartao p-8 flex flex-col gap-6 min-h-0" aria-labelledby="titulo-preparando">
+      <h1 id="titulo-preparando" class="t-titulo text-laranja m-0">🔥 Preparando</h1>
+      <div id="preparing" class="grid grid-cols-2 gap-6 content-start overflow-hidden" aria-live="polite"></div>
+    </section>
+    <section class="cartao p-8 flex flex-col gap-6 min-h-0" aria-labelledby="titulo-pronto">
+      <h1 id="titulo-pronto" class="t-titulo text-amarelo m-0">✅ Pronto</h1>
+      <div id="ready" class="grid grid-cols-2 gap-6 content-start overflow-hidden text-amarelo" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer id="average" class="px-10 pb-6 text-suave text-[32px]"></footer>
+
+  <div id="highlight" class="destaque-pronto hidden" role="alert">
+    <div class="t-titulo">✅ Pedido pronto</div>
+    <div id="highlight-number" class="pedido-numero pedido-numero-painel"></div>
+  </div>
+
+  <div id="sound-gate" class="ativar-som" role="button" tabindex="0">🔊 Toque para ativar o som</div>
+
+  <script type="module" src="/static/js/painel.js"></script>
+</body>
+</html>
