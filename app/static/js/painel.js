@@ -5,6 +5,7 @@ const $ = (id) => document.getElementById(id);
 
 const vistos = new Set();
 const filaDeDestaques = [];
+let prontosAgora = new Set();
 let primeiraCarga = true;
 let exibindo = false;
 let audioAtivo = false;
@@ -23,7 +24,8 @@ function falar(pedido) {
 }
 
 function proximoDestaque() {
-  const pedido = filaDeDestaques.shift();
+  let pedido = filaDeDestaques.shift();
+  while (pedido && !prontosAgora.has(pedido.id)) pedido = filaDeDestaques.shift();
   if (!pedido) {
     exibindo = false;
     $('destaque').hidden = true;
@@ -37,7 +39,9 @@ function proximoDestaque() {
 }
 
 function detectarProntos(pedidos) {
-  for (const pedido of pedidos.filter((p) => p.estado === 'pronto')) {
+  const prontos = pedidos.filter((p) => p.estado === 'pronto');
+  prontosAgora = new Set(prontos.map((p) => p.id));
+  for (const pedido of prontos) {
     if (vistos.has(pedido.id)) continue;
     vistos.add(pedido.id);
     if (!primeiraCarga) filaDeDestaques.push(pedido);

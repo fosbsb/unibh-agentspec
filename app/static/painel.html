@@ -10,14 +10,14 @@
   <script src="/static/js/tailwind-config.js"></script>
 </head>
 <body class="tela-painel min-h-screen overflow-hidden cursor-none">
-  <main class="min-h-screen grid grid-cols-2 grid-rows-[1fr_auto]">
-    <section class="p-12 border-r-4 border-borda">
-      <h1 class="fonte-titulo text-laranja mb-8">🔥 Preparando</h1>
-      <ul id="preparando" class="flex flex-col gap-4 fonte-pedido-lista num-pedido"></ul>
+  <main class="h-screen grid grid-cols-2 grid-rows-[minmax(0,1fr)_auto]">
+    <section class="p-12 pb-6 border-r-4 border-borda overflow-hidden">
+      <h1 class="fonte-titulo text-laranja mb-4">🔥 Preparando</h1>
+      <ul id="preparando" class="grid grid-cols-2 gap-x-8 gap-y-1 fonte-pedido-lista num-pedido"></ul>
     </section>
-    <section class="p-12">
-      <h1 class="fonte-titulo text-amarelo mb-8">✅ Pronto</h1>
-      <ul id="pronto" class="flex flex-col gap-4 fonte-pedido-lista num-pedido text-amarelo"></ul>
+    <section class="p-12 pb-6 overflow-hidden">
+      <h1 class="fonte-titulo text-amarelo mb-4">✅ Pronto</h1>
+      <ul id="pronto" class="grid grid-cols-2 gap-x-8 gap-y-1 fonte-pedido-lista num-pedido text-amarelo"></ul>
     </section>
     <footer id="rodape" class="col-span-2 p-6 text-center text-suave text-[32px] border-t-4 border-borda"></footer>
   </main>

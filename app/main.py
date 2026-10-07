@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -24,6 +24,13 @@ app = FastAPI(title="Totem de Atendimento", lifespan=lifespan)
 app.include_router(produtos.router)
 app.include_router(pedidos.router)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+@app.middleware("http")
+async def sem_cache(request: Request, call_next):
+    resposta = await call_next(request)
+    resposta.headers["Cache-Control"] = "no-cache"
+    return resposta
 
 
 @app.get("/", include_in_schema=False)
