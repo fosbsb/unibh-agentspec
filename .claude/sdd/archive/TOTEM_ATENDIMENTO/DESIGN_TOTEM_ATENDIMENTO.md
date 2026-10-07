@@ -6,7 +6,7 @@
 **Data:** 2026-10-07
 **Origem:** `.claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md`
 **Visual:** `specs/DESIGN_SYSTEM.md` v1.0.0
-**Status:** Pronto para /build
+**Status:** ✅ Shipped
 
 ---
 
@@ -810,3 +810,7 @@ Todos os testes de API e de serviço rodam em PostgreSQL real (D-08), com `TRUNC
 ```bash
 /tecspec:workflow:build .claude/sdd/features/DESIGN_TOTEM_ATENDIMENTO.md
 ```
+
+---
+
+**Revisão:** shipped e arquivado em 2026-10-07.

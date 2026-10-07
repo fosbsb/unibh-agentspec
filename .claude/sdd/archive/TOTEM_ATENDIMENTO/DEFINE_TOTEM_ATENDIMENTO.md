@@ -5,7 +5,7 @@
 **Feature:** TOTEM_ATENDIMENTO
 **Data:** 2026-10-07
 **Origem:** `.claude/sdd/features/BRAINSTORM_TOTEM_ATENDIMENTO.md` (tipo: `brainstorm_document`)
-**Status:** Pronto para /design
+**Status:** ✅ Shipped
 **Clarity Score:** 15/15
 
 ---
@@ -216,3 +216,7 @@ O detalhamento de payloads e códigos de erro fica para o `/design`.
 ```bash
 /tecspec:workflow:design .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md
 ```
+
+---
+
+**Revisão:** shipped e arquivado em 2026-10-07.

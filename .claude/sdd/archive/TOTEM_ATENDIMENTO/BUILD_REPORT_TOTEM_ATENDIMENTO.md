@@ -3,7 +3,7 @@
 **Feature:** TOTEM_ATENDIMENTO
 **Data:** 2026-10-07
 **Origem:** `.claude/sdd/features/DESIGN_TOTEM_ATENDIMENTO.md`
-**Status:** Concluído, com ressalvas listadas na seção 6
+**Status:** ✅ Shipped (com ressalvas da seção 6)
 
 ---
 
@@ -147,7 +147,22 @@ Depois de restaurar, a suíte voltou a 64 de 64.
 [ ] Lint (ruff) e tipos (mypy): não executados
 ```
 
-## 8. Próximo passo
+## 8. Atualização pós-build: tela de revisão
+
+Depois do build original, foi adicionada uma tela de revisão do pedido no totem (pedido via `/dev`). Esta seção prevalece sobre as anteriores onde houver diferença.
+
+| Item | Antes | Depois |
+|---|---|---|
+| Botão da barra do carrinho | "Finalizar pedido" (enviava o pedido) | "Revisar pedido" (abre a revisão) |
+| Envio do pedido | Direto do cardápio | Na revisão, em "Confirmar pedido"; "Voltar e editar" volta ao cardápio com o carrinho intacto |
+| Testes pytest | 64 | **65** (novo `test_totem_has_the_review_step_before_confirming`) |
+| Verificações de interface | 30 | **37** (revisão lista itens e total, nenhum pedido antes de confirmar, voltar mantém o carrinho, inatividade de 30 s na revisão, confirmar cria exatamente 1 pedido) |
+
+Também foram atualizados `specs/DESIGN_SYSTEM.md` (1.1.0, seção 6.10), o DEFINE (RF-06 e AT-04b), o DESIGN (seção 5.1) e o `roteiro/ROTEIRO.md`.
+
+Uma verificação de interface do conflito 409 na cozinha falhou numa rodada por corrida do próprio roteiro de teste (o polling de 2 s atualizava a tela entre dois cliques). O roteiro passou a servir a lista antiga durante o conflito e voltou a 37 de 37. A aplicação não mudou nesse ponto.
+
+## 9. Próximo passo
 
 ```bash
 /tecspec:workflow:ship .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md

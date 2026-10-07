@@ -5,7 +5,7 @@
 **Feature:** TOTEM_ATENDIMENTO
 **Data:** 2026-10-07
 **Autor:** brainstorm-agent
-**Status:** Pronto para /define
+**Status:** ✅ Shipped
 
 ---
 
@@ -191,3 +191,7 @@ Tabelas `products`, `orders` e `order_items`, criadas na subida com `create_all`
 ```bash
 /tecspec:workflow:define .claude/sdd/features/BRAINSTORM_TOTEM_ATENDIMENTO.md
 ```
+
+---
+
+**Revisão:** shipped e arquivado em 2026-10-07.
