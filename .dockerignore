@@ -1,0 +1,6 @@
+.git
+.claude
+specs
+roteiro
+**/__pycache__
+.pytest_cache

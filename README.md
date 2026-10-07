@@ -37,7 +37,7 @@ O foco não é digitar menos código. É **decidir antes de codar** e deixar a I
 | 3. Arquitetura | `/design` | Decisões técnicas, plano de arquivos |
 | 4. Código | `/build` | Execução com verificação |
 | 5. Entrega | `/ship` | Arquivamento e lições aprendidas |
-| 6. Projeto de exemplo | *(será adicionado)* | Tudo junto |
+| 6. Projeto de exemplo | Totem de autoatendimento ([Rodando o totem](#rodando-o-totem)) | Tudo junto |
 
 ---
 
@@ -351,3 +351,28 @@ unibh-agentspec/
 ## Licença
 
 [MIT](LICENSE) © 2026 Flaviano O. Silva. Material didático, sem fins comerciais.
+
+---
+
+## Rodando o totem
+
+O totem de autoatendimento da oficina sobe com um único comando. Precisa de Docker e Docker Compose, e de internet na primeira carga das telas (o Tailwind vem de um CDN).
+
+```bash
+docker compose up --build
+```
+
+| Tela | Endereço | Uso |
+|---|---|---|
+| Totem | http://localhost:8000/totem | Cliente monta o pedido (1080x1920, toque) |
+| Cozinha | http://localhost:8000/cozinha | Atendente avança o estado do pedido |
+| Painel | http://localhost:8000/painel | TV com pedidos em preparo e prontos. Toque uma vez para ativar a voz |
+| API | http://localhost:8000/docs | Documentação interativa |
+
+Rodar os testes (precisam do PostgreSQL do `docker compose`, usam o banco `totem_test`):
+
+```bash
+docker compose run --rm app pytest
+```
+
+Para apagar os dados e recomeçar: `docker compose down -v`.

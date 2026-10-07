@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Totem de Atendimento</title>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/static/js/tailwind-config.js"></script>
+</head>
+<body class="tela-totem min-h-screen select-none">
+  <main class="mx-auto max-w-[1080px] min-h-screen relative">
+
+    <section id="inicio" class="min-h-screen flex flex-col items-center justify-center gap-12 p-12 text-center">
+      <div class="text-[160px] leading-none" aria-hidden="true">🍔</div>
+      <h1 class="fonte-titulo text-laranja">Faça seu pedido</h1>
+      <p class="text-suave">Escolha seus produtos e retire no balcão.</p>
+      <button id="comecar" class="btn btn-primario w-full max-w-[720px] min-h-[160px] text-[48px]">
+        Toque para começar
+      </button>
+    </section>
+
+    <section id="cardapio" hidden class="min-h-screen flex flex-col">
+      <header class="sticky top-0 z-10 bg-preto p-6 pb-4">
+        <h1 class="fonte-titulo text-laranja mb-4">Cardápio</h1>
+        <div id="abas" role="tablist" class="flex gap-4"></div>
+      </header>
+      <div id="produtos" class="grid grid-cols-2 gap-6 p-6 pb-[220px]"></div>
+      <footer class="fixed bottom-0 inset-x-0 mx-auto max-w-[1080px] bg-superficie border-t-4 border-laranja p-6 flex items-center gap-6">
+        <div class="flex-1">
+          <div id="barra-itens" class="text-suave">Carrinho vazio</div>
+          <div id="barra-total" class="fonte-preco">R$ 0,00</div>
+        </div>
+        <button id="revisar" class="btn btn-primario min-w-[400px]" disabled>Revisar pedido</button>
+      </footer>
+    </section>
+
+    <section id="revisao" hidden class="min-h-screen flex flex-col p-6 gap-6">
+      <h1 class="fonte-titulo text-laranja">Revise seu pedido</h1>
+      <div id="linhas" class="flex flex-col gap-4"></div>
+      <div class="cartao p-6 flex items-center justify-between">
+        <span class="fonte-produto">Total</span>
+        <span id="revisao-total" class="fonte-preco">R$ 0,00</span>
+      </div>
+      <div id="erro" class="erro" role="alert" hidden>
+        <span aria-hidden="true">⚠</span><span id="erro-texto"></span>
+      </div>
+      <div class="flex flex-col gap-4 mt-auto">
+        <button id="finalizar" class="btn btn-primario w-full min-h-[120px] text-[40px]">Finalizar pedido</button>
+        <button id="voltar" class="btn btn-secundario w-full">Voltar</button>
+      </div>
+    </section>
+
+    <section id="confirmacao" hidden class="min-h-screen flex flex-col items-center justify-center gap-10 p-12 text-center">
+      <p class="fonte-produto text-suave">Seu pedido é o número</p>
+      <div id="numero-pedido" class="fonte-pedido-totem num-pedido text-amarelo"></div>
+      <p class="fonte-produto">Retire no balcão quando o painel chamar</p>
+    </section>
+
+  </main>
+  <script type="module" src="/static/js/totem.js"></script>
+</body>
+</html>

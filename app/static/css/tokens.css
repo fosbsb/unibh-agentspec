@@ -1,0 +1,140 @@
+:root {
+  --cor-preto: #0D0D0D;
+  --cor-laranja: #FF7A00;
+  --cor-amarelo: #FFC20E;
+  --cor-vermelho: #D62828;
+  --cor-superficie: #1C1C1C;
+  --cor-superficie-alta: #2A2A2A;
+  --cor-borda: #3D3D3D;
+  --cor-texto: #FFFFFF;
+  --cor-texto-suave: #BDBDBD;
+  --cor-vermelho-claro: #FF5A5A;
+
+  --fonte-familia: "Inter", "Segoe UI", system-ui, sans-serif;
+  --fonte-base-totem: 24px;
+  --fonte-base-cozinha: 16px;
+  --fonte-titulo: 48px;
+  --fonte-produto: 28px;
+  --fonte-preco: 32px;
+  --fonte-pedido-totem: 160px;
+  --fonte-pedido-painel: 192px;
+  --fonte-pedido-lista: 72px;
+
+  --espaco-1: 8px;
+  --espaco-2: 16px;
+  --espaco-3: 24px;
+  --espaco-4: 32px;
+  --espaco-5: 48px;
+  --raio-botao: 20px;
+  --raio-cartao: 28px;
+  --sombra-cartao: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --toque-minimo: 80px;
+  --movimento-rapido: 150ms ease-out;
+  --movimento-normal: 300ms ease-out;
+}
+
+html, body {
+  margin: 0;
+  background: var(--cor-preto);
+  color: var(--cor-texto);
+  font-family: var(--fonte-familia);
+}
+body.tela-totem { font-size: var(--fonte-base-totem); }
+body.tela-cozinha { font-size: var(--fonte-base-cozinha); }
+body.tela-painel { font-size: var(--fonte-base-totem); }
+
+[hidden] { display: none !important; }
+
+.num-pedido { font-variant-numeric: tabular-nums; }
+.fonte-titulo { font-size: var(--fonte-titulo); font-weight: 800; }
+.fonte-produto { font-size: var(--fonte-produto); font-weight: 700; }
+.fonte-preco { font-size: var(--fonte-preco); font-weight: 800; color: var(--cor-amarelo); }
+.fonte-pedido-totem { font-size: var(--fonte-pedido-totem); font-weight: 900; line-height: 1; }
+.fonte-pedido-painel { font-size: var(--fonte-pedido-painel); font-weight: 900; line-height: 1; }
+.fonte-pedido-lista { font-size: var(--fonte-pedido-lista); font-weight: 800; line-height: 1.1; }
+
+.cartao {
+  background: var(--cor-superficie);
+  border-radius: var(--raio-cartao);
+  box-shadow: var(--sombra-cartao);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--toque-minimo);
+  padding: 0 var(--espaco-4);
+  border: 3px solid transparent;
+  border-radius: var(--raio-botao);
+  font: inherit;
+  font-size: 28px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--movimento-rapido), filter var(--movimento-rapido);
+}
+.btn:active:not(:disabled) { transform: scale(0.97); filter: brightness(0.9); }
+.btn:focus-visible { outline: 4px solid var(--cor-amarelo); outline-offset: 2px; }
+.btn-primario { background: var(--cor-laranja); color: var(--cor-preto); }
+.btn-secundario { background: transparent; border-color: var(--cor-laranja); color: var(--cor-laranja); }
+.btn-perigo { background: var(--cor-vermelho); color: var(--cor-texto); }
+.btn:disabled {
+  background: var(--cor-superficie-alta);
+  border-color: transparent;
+  color: var(--cor-texto-suave);
+  cursor: not-allowed;
+}
+.tela-cozinha .btn { min-height: 44px; font-size: 18px; padding: 0 var(--espaco-3); }
+
+.aba {
+  flex: 1;
+  min-height: var(--toque-minimo);
+  border: 0;
+  border-radius: var(--raio-botao);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 28px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.aba[aria-selected="true"] { background: var(--cor-laranja); color: var(--cor-preto); }
+.aba:focus-visible { outline: 4px solid var(--cor-amarelo); outline-offset: 2px; }
+
+.selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.selo-recebido { background: var(--cor-superficie-alta); color: var(--cor-texto); }
+.selo-preparando { background: var(--cor-laranja); color: var(--cor-preto); }
+.selo-pronto { background: var(--cor-amarelo); color: var(--cor-preto); }
+.selo-entregue { background: var(--cor-superficie-alta); color: var(--cor-texto-suave); }
+
+.erro {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  padding: var(--espaco-3);
+  background: var(--cor-superficie);
+  border-left: 8px solid var(--cor-vermelho);
+  border-radius: 12px;
+  color: var(--cor-vermelho-claro);
+  font-weight: 600;
+}
+
+@keyframes pulsar {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+.pulsar { animation: pulsar 1s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
