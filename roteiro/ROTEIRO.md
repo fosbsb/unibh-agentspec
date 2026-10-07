@@ -1,8 +1,8 @@
 # Roteiro: Totem de Atendimento com o TecSpec
 
-Passo a passo para construir o totem. Siga a ordem: cada passo traz o **prompt**, o **que esperar** e **como verificar**.
+Passo a passo para construir o totem. Os comandos usam o prefixo do plugin (`/tecspec:workflow:...`). Siga a ordem: cada passo traz o **prompt**, o **que esperar** e **como verificar**.
 
-**Resultado final:** um totem de autoatendimento de lanchonete com PostgreSQL e um design system próprio (preto, laranja, amarelo e vermelho), feito do zero com o fluxo SDD (`/brainstorm → /define → /design → /build → /ship`).
+**Resultado final:** um totem de autoatendimento de lanchonete com PostgreSQL e um design system próprio (preto, laranja, amarelo e vermelho), feito do zero com o fluxo SDD (brainstorm, define, design, build e ship).
 
 | Tela | Quem usa | O que faz |
 |---|---|---|
@@ -65,16 +65,16 @@ claude
 
 - O Claude Code abre na pasta do projeto.
 - Ao iniciar a sessão, o TecSpec detecta a stack e cria `.detected-stack*.md`. No projeto vazio, a detecção encontra pouca coisa, e isso é normal.
-- Dentro do Claude Code, o `/` mostra `/brainstorm`, `/define`, `/design`, `/build` e `/ship` na lista.
+- Dentro do Claude Code, digitar `/tecspec:workflow:` mostra `brainstorm`, `define`, `design`, `build`, `iterate` e `ship` na lista.
 
 ---
 
-## Passo 1: `/brainstorm` (explorar a ideia)
+## Passo 1: `/tecspec:workflow:brainstorm` (explorar a ideia)
 
 ### Prompt
 
 ```text
-/brainstorm "Quero um totem de autoatendimento para uma lanchonete. O cliente toca na tela do totem, escolhe produtos do cardápio, monta o pedido e recebe o número do pedido. Uma tela de cozinha mostra os pedidos em ordem de chegada, e o atendente muda o estado do pedido (recebido, preparando, pronto, entregue). Uma TV mostra os pedidos em preparo e os prontos. É uma demonstração para uma oficina: precisa subir com um único docker compose up, sem login e sem etapa de build no frontend. Stack: FastAPI, SQLAlchemy com PostgreSQL 16 (container db no docker compose), telas em HTML, Tailwind via CDN e JavaScript puro, testes com pytest. O visual segue o design system já definido em specs/DESIGN_SYSTEM.md (preto, laranja, amarelo e vermelho). O cardápio tem 10 produtos simulados, carregados no banco na subida da aplicação: Hambúrguer clássico (R$ 24,90), X-Bacon (R$ 29,90), Cachorro-quente (R$ 16,90) e Batata frita (R$ 14,90) em Lanches; Crepe de queijo e presunto (R$ 19,90) e Crepe de chocolate com morango (R$ 21,90) em Crepes; Suco de laranja (R$ 9,90), Suco de abacaxi com hortelã (R$ 10,90) e Milk shake de chocolate (R$ 18,90) em Bebidas; Sundae de morango (R$ 12,90) em Sobremesas."
+/tecspec:workflow:brainstorm "Quero um totem de autoatendimento para uma lanchonete. O cliente toca na tela do totem, escolhe produtos do cardápio, monta o pedido e recebe o número do pedido. Uma tela de cozinha mostra os pedidos em ordem de chegada, e o atendente muda o estado do pedido (recebido, preparando, pronto, entregue). Uma TV mostra os pedidos em preparo e os prontos. É uma demonstração para uma oficina: precisa subir com um único docker compose up, sem login e sem etapa de build no frontend. Stack: FastAPI, SQLAlchemy com PostgreSQL 16 (container db no docker compose), telas em HTML, Tailwind via CDN e JavaScript puro, testes com pytest. O visual segue o design system já definido em specs/DESIGN_SYSTEM.md (preto, laranja, amarelo e vermelho). O cardápio tem 10 produtos simulados, carregados no banco na subida da aplicação: Hambúrguer clássico (R$ 24,90), X-Bacon (R$ 29,90), Cachorro-quente (R$ 16,90) e Batata frita (R$ 14,90) em Lanches; Crepe de queijo e presunto (R$ 19,90) e Crepe de chocolate com morango (R$ 21,90) em Crepes; Suco de laranja (R$ 9,90), Suco de abacaxi com hortelã (R$ 10,90) e Milk shake de chocolate (R$ 18,90) em Bebidas; Sundae de morango (R$ 12,90) em Sobremesas."
 ```
 
 ### O que esperar
@@ -119,19 +119,19 @@ As perguntas variam. Use estas respostas conforme o tema que aparecer:
 
 ---
 
-## Passo 2: `/define` (requisitos e critérios de aceite)
+## Passo 2: `/tecspec:workflow:define` (requisitos e critérios de aceite)
 
 ### Prompt
 
 Troque o nome do arquivo pelo que o passo 1 gerou:
 
 ```text
-/define .claude/sdd/features/BRAINSTORM_TOTEM_ATENDIMENTO.md
+/tecspec:workflow:define .claude/sdd/features/BRAINSTORM_TOTEM_ATENDIMENTO.md
 ```
 
 ### O que esperar
 
-- Como o brainstorm já respondeu quase tudo, o `/define` faz poucas ou nenhuma pergunta.
+- Como o brainstorm já respondeu quase tudo, o `/tecspec:workflow:define` faz poucas ou nenhuma pergunta.
 - O agente calcula a **nota de clareza** (problema, usuários, metas, sucesso e escopo, de 0 a 3 cada). O comando só avança com 12 de 15 ou mais.
 - Se a nota ficar abaixo de 12, ele pergunta mais. Responda com detalhe.
 - Grava `.claude/sdd/features/DEFINE_{FEATURE}.md` com problema, usuários, metas, requisitos e **critérios de aceite**.
@@ -148,14 +148,14 @@ Troque o nome do arquivo pelo que o passo 1 gerou:
 Se um requisito estiver errado ou faltando, corrija sem editar o arquivo à mão:
 
 ```text
-/iterate .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md "Ajuste: a tela da cozinha deve mostrar quantos pedidos estão aguardando em cada estado."
+/tecspec:workflow:iterate .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md "Ajuste: a tela da cozinha deve mostrar quantos pedidos estão aguardando em cada estado."
 ```
 
 ---
 
 ## Passo 3: Design system do totem
 
-O design system já está definido em [specs/DESIGN_SYSTEM.md](../specs/DESIGN_SYSTEM.md). Este passo transforma o documento em código: os tokens CSS e uma página de amostra. Ele vem **antes** do `/design` porque a arquitetura precisa saber onde ficam os tokens e os componentes. Quem executa é o agente `web-design-specialist`.
+O design system já está definido em [specs/DESIGN_SYSTEM.md](../specs/DESIGN_SYSTEM.md). Este passo transforma o documento em código: os tokens CSS e uma página de amostra. Ele vem **antes** do `/tecspec:workflow:design` porque a arquitetura precisa saber onde ficam os tokens e os componentes. Quem executa é o agente `web-design-specialist`.
 
 **Paleta definida no documento:**
 
@@ -202,12 +202,12 @@ Use apenas as variáveis dos tokens, nunca valores de cor escritos direto. Não 
 
 ---
 
-## Passo 4: `/design` (arquitetura)
+## Passo 4: `/tecspec:workflow:design` (arquitetura)
 
 ### Prompt
 
 ```text
-/design .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md "Toda a interface deve seguir specs/DESIGN_SYSTEM.md e usar os tokens de app/static/css/tokens.css. O banco é PostgreSQL 16 no serviço db do docker compose. Os 10 produtos do cardápio são carregados na subida da aplicação."
+/tecspec:workflow:design .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md "Toda a interface deve seguir specs/DESIGN_SYSTEM.md e usar os tokens de app/static/css/tokens.css. O banco é PostgreSQL 16 no serviço db do docker compose. Os 10 produtos do cardápio são carregados na subida da aplicação."
 ```
 
 ### O que esperar
@@ -251,12 +251,12 @@ requirements.txt
 
 ---
 
-## Passo 5: `/build` (o código é gerado)
+## Passo 5: `/tecspec:workflow:build` (o código é gerado)
 
 ### Prompt
 
 ```text
-/build .claude/sdd/features/DESIGN_TOTEM_ATENDIMENTO.md
+/tecspec:workflow:build .claude/sdd/features/DESIGN_TOTEM_ATENDIMENTO.md
 ```
 
 ### O que esperar
@@ -366,12 +366,12 @@ A página `/docs` do FastAPI lista todas as rotas criadas.
 
 ---
 
-## Passo 7: `/iterate` (o requisito mudou)
+## Passo 7: `/tecspec:workflow:iterate` (o requisito mudou)
 
 ### Prompt
 
 ```text
-/iterate .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md "Novo requisito: o painel deve mostrar o tempo médio de preparo do dia, calculado entre a criação do pedido e o momento em que ele fica pronto. Mostre em minutos, no rodapé do painel, usando os tokens do design system."
+/tecspec:workflow:iterate .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md "Novo requisito: o painel deve mostrar o tempo médio de preparo do dia, calculado entre a criação do pedido e o momento em que ele fica pronto. Mostre em minutos, no rodapé do painel, usando os tokens do design system."
 ```
 
 ### O que esperar
@@ -383,7 +383,7 @@ A página `/docs` do FastAPI lista todas as rotas criadas.
 Depois, aplique a mudança no código:
 
 ```text
-/build .claude/sdd/features/DESIGN_TOTEM_ATENDIMENTO.md
+/tecspec:workflow:build .claude/sdd/features/DESIGN_TOTEM_ATENDIMENTO.md
 ```
 
 ### Como verificar
@@ -399,7 +399,7 @@ Depois, aplique a mudança no código:
 ### 8.1 Revisão de código
 
 ```text
-/review
+/tecspec:review:review
 ```
 
 **Esperado:** relatório com achados por gravidade (segurança, bugs, estilo). Se a ferramenta CodeRabbit não estiver instalada, a revisão do Claude ainda roda. Para corrigir o que fizer sentido:
@@ -424,7 +424,7 @@ Use o agente design-system-auditor para auditar app/static/totem.html, cozinha.h
 ### 8.3 Commit
 
 ```text
-/commit
+/tecspec:git:commit
 ```
 
 **Esperado:** uma mensagem no padrão Conventional Commits, por exemplo `feat: adiciona totem de autoatendimento com cozinha e painel`. Confirme o commit.
@@ -435,7 +435,7 @@ Use o agente design-system-auditor para auditar app/static/totem.html, cozinha.h
 ### 8.4 Entrega
 
 ```text
-/ship .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md
+/tecspec:workflow:ship .claude/sdd/features/DEFINE_TOTEM_ATENDIMENTO.md
 ```
 
 **Esperado:**
@@ -482,17 +482,17 @@ Explique, com um exemplo de dois atendentes clicando em Iniciar ao mesmo tempo, 
 
 **Entender o estado do projeto**
 ```text
-/status
+/tecspec:core:status
 ```
 
 **Gerar um diagrama da arquitetura**
 ```text
-/generate-web-diagram "Arquitetura do totem de autoatendimento: totem, cozinha e painel conversando com a API FastAPI e o PostgreSQL, tudo em docker compose"
+/tecspec:visual-explainer:generate-web-diagram "Arquitetura do totem de autoatendimento: totem, cozinha e painel conversando com a API FastAPI e o PostgreSQL, tudo em docker compose"
 ```
 
 **Segunda opinião de outro modelo** (precisa de `OPENROUTER_API_KEY`)
 ```text
-/judge .claude/sdd/features/DESIGN_TOTEM_ATENDIMENTO.md
+/tecspec:review:judge .claude/sdd/features/DESIGN_TOTEM_ATENDIMENTO.md
 ```
 
 **Recomeçar do zero**

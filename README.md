@@ -33,10 +33,10 @@ O foco não é digitar menos código. É **decidir antes de codar** e deixar a I
 |---|---|---|
 | 0. Setup | Instala o Claude Code e o plugin TecSpec | Plugin, marketplace, MCP |
 | 1. Conhecer o TecSpec | Explora agentes, KB e comandos | Especialistas, base de conhecimento |
-| 2. Ideia e requisitos | `/brainstorm` e `/define` | Escopo, critérios de aceite |
-| 3. Arquitetura | `/design` | Decisões técnicas, plano de arquivos |
-| 4. Código | `/build` | Execução com verificação |
-| 5. Entrega | `/ship` | Arquivamento e lições aprendidas |
+| 2. Ideia e requisitos | `/tecspec:workflow:brainstorm` e `/tecspec:workflow:define` | Escopo, critérios de aceite |
+| 3. Arquitetura | `/tecspec:workflow:design` | Decisões técnicas, plano de arquivos |
+| 4. Código | `/tecspec:workflow:build` | Execução com verificação |
+| 5. Entrega | `/tecspec:workflow:ship` | Arquivamento e lições aprendidas |
 | 6. Projeto de exemplo | *(será adicionado)* | Tudo junto |
 
 ---
@@ -79,7 +79,7 @@ O foco não é digitar menos código. É **decidir antes de codar** e deixar a I
 - [Git](https://git-scm.com/downloads)
 - Python 3 (usado pelos scripts do plugin)
 - Chaves gratuitas para os MCPs **context7**, **exa** e **Ref** (opcionais, mas os agentes rendem mais com elas)
-- *(Opcional)* `OPENROUTER_API_KEY`, só para a segunda opinião de outro modelo (`/judge`)
+- *(Opcional)* `OPENROUTER_API_KEY`, só para a segunda opinião de outro modelo (`/tecspec:review:judge`)
 
 ### Baixe o projeto
 
@@ -133,7 +133,7 @@ claude mcp add --scope user --transport http Ref https://api.ref.tools/mcp --hea
 |---|---|---|
 | **Agentes** | 78, em 14 categorias | Especialistas que recebem uma tarefa focada (FastAPI, PostgreSQL, React, dbt, Spark, Docker…) |
 | **Knowledge base** | 71 domínios | Referência técnica curta e atual, que os agentes consultam em vez de adivinhar |
-| **Comandos** | 35 | Atalhos como `/define`, `/build`, `/review`, `/commit` |
+| **Comandos** | 35 | Atalhos como `/tecspec:workflow:define`, `/tecspec:workflow:build`, `/tecspec:review:review`, `/tecspec:git:commit` |
 | **Skills** | 5 | Roteamento automático de tarefas para o agente certo |
 | **Hooks** | 2 | Detectam a stack do projeto ao iniciar a sessão |
 
@@ -171,34 +171,36 @@ O agente `codebase-explorer` devolve um resumo executivo e um mergulho nos detal
 
 | Fluxo | Quando usar | Comandos |
 |---|---|---|
-| **Dev Loop** | Tarefa de 1 a 4 horas, escopo claro | `/dev` |
-| **SDD (5 fases)** | Feature com várias partes, que precisa de rastreabilidade | `/brainstorm`, `/define`, `/design`, `/build`, `/ship` |
+| **Dev Loop** | Tarefa de 1 a 4 horas, escopo claro | `/tecspec:dev:dev` |
+| **SDD (5 fases)** | Feature com várias partes, que precisa de rastreabilidade | `/tecspec:workflow:brainstorm`, `/tecspec:workflow:define`, `/tecspec:workflow:design`, `/tecspec:workflow:build`, `/tecspec:workflow:ship` |
 
 Esta oficina usa o **SDD**.
 
 ### As 5 fases
 
 ```text
-/brainstorm  →  /define  →  /design  →  /build  →  /ship
-  (ideia)      (requisitos) (arquitetura)  (código)   (entrega)
+brainstorm  →  define  →  design  →  build  →  ship
+  (ideia)    (requisitos) (arquitetura) (código) (entrega)
 ```
+
+Os comandos usam o prefixo do plugin: `/tecspec:workflow:<fase>`.
 
 | Fase | Comando | Entrada | Saída |
 |---|---|---|---|
-| 0. Brainstorm | `/brainstorm` | Sua ideia crua | `.claude/sdd/features/BRAINSTORM_{FEATURE}.md` |
-| 1. Define | `/define` | O brainstorm ou um texto livre | `.claude/sdd/features/DEFINE_{FEATURE}.md` |
-| 2. Design | `/design` | O `DEFINE_*.md` | `.claude/sdd/features/DESIGN_{FEATURE}.md` |
-| 3. Build | `/build` | O `DESIGN_*.md` | Código e `.claude/sdd/reports/BUILD_REPORT_{FEATURE}.md` |
-| 4. Ship | `/ship` | O `DEFINE_*.md` | `.claude/sdd/archive/{FEATURE}/SHIPPED_{DATA}.md` |
+| 0. Brainstorm | `/tecspec:workflow:brainstorm` | Sua ideia crua | `.claude/sdd/features/BRAINSTORM_{FEATURE}.md` |
+| 1. Define | `/tecspec:workflow:define` | O brainstorm ou um texto livre | `.claude/sdd/features/DEFINE_{FEATURE}.md` |
+| 2. Design | `/tecspec:workflow:design` | O `DEFINE_*.md` | `.claude/sdd/features/DESIGN_{FEATURE}.md` |
+| 3. Build | `/tecspec:workflow:build` | O `DESIGN_*.md` | Código e `.claude/sdd/reports/BUILD_REPORT_{FEATURE}.md` |
+| 4. Ship | `/tecspec:workflow:ship` | O `DEFINE_*.md` | `.claude/sdd/archive/{FEATURE}/SHIPPED_{DATA}.md` |
 
-A fase 0 é opcional. Se os requisitos mudarem no meio do caminho, use `/iterate` para atualizar o documento certo, e o TecSpec avisa o que precisa ser refeito nas fases seguintes.
+A fase 0 é opcional. Se os requisitos mudarem no meio do caminho, use `/tecspec:workflow:iterate` para atualizar o documento certo, e o TecSpec avisa o que precisa ser refeito nas fases seguintes.
 
 > [!TIP]
-> Cada fase tem um **quality gate**. Por exemplo, o `/define` só avança com clareza de pelo menos 12/15. Se o documento não passar, o comando mostra o que falta.
+> Cada fase tem um **quality gate**. Por exemplo, o `/tecspec:workflow:define` só avança com clareza de pelo menos 12/15. Se o documento não passar, o comando mostra o que falta.
 
 ---
 
-## Parte 2: Ideia e requisitos (`/brainstorm` e `/define`)
+## Parte 2: Ideia e requisitos (`/tecspec:workflow:brainstorm` e `/tecspec:workflow:define`)
 
 ### Por que usar a spec aqui
 
@@ -208,12 +210,12 @@ Pedir "faz um sistema de X" deixa a IA decidir tudo por você. Escrever o proble
 
 1. **Explore a ideia:**
    ```text
-   /brainstorm "descreva aqui a sua ideia"
+   /tecspec:workflow:brainstorm "descreva aqui a sua ideia"
    ```
    O agente conversa com você, compara abordagens e registra a decisão em `BRAINSTORM_{FEATURE}.md`.
 2. **Capture os requisitos:**
    ```text
-   /define .claude/sdd/features/BRAINSTORM_{FEATURE}.md
+   /tecspec:workflow:define .claude/sdd/features/BRAINSTORM_{FEATURE}.md
    ```
    Saem o problema, os usuários, as metas, o que fica fora do escopo e os **critérios de aceite**.
 
@@ -227,13 +229,13 @@ Pedir "faz um sistema de X" deixa a IA decidir tudo por você. Escrever o proble
 
 | Sintoma | Causa provável | O que fazer |
 |---|---|---|
-| Comando `/define` não existe | Plugin não instalado ou sessão antiga | Rode `claude plugin list` e reinicie o Claude Code |
+| Comando `/tecspec:workflow:define` não existe | Plugin não instalado ou sessão antiga | Rode `claude plugin list` e reinicie o Claude Code |
 | Clareza abaixo de 12/15 | Requisitos vagos | Responda às perguntas do agente com mais detalhe |
-| O agente inventa requisitos | Pedido muito aberto | Corrija no documento e rode `/iterate` |
+| O agente inventa requisitos | Pedido muito aberto | Corrija no documento e rode `/tecspec:workflow:iterate` |
 
 ---
 
-## Parte 3: Arquitetura (`/design`)
+## Parte 3: Arquitetura (`/tecspec:workflow:design`)
 
 ### Por que usar a spec aqui
 
@@ -242,7 +244,7 @@ O design transforma "o que" em "como": componentes, decisões técnicas, lista d
 ### Passo a passo
 
 ```text
-/design .claude/sdd/features/DEFINE_{FEATURE}.md
+/tecspec:workflow:design .claude/sdd/features/DEFINE_{FEATURE}.md
 ```
 
 ### Como verificar
@@ -253,16 +255,16 @@ O design transforma "o que" em "como": componentes, decisões técnicas, lista d
 
 ---
 
-## Parte 4: Código (`/build`)
+## Parte 4: Código (`/tecspec:workflow:build`)
 
 ### Por que usar a spec aqui
 
-O `/build` lê o design e delega cada arquivo ao agente especialista certo, verificando o resultado conforme avança.
+O `/tecspec:workflow:build` lê o design e delega cada arquivo ao agente especialista certo, verificando o resultado conforme avança.
 
 ### Passo a passo
 
 ```text
-/build .claude/sdd/features/DESIGN_{FEATURE}.md
+/tecspec:workflow:build .claude/sdd/features/DESIGN_{FEATURE}.md
 ```
 
 ### Como verificar
@@ -273,12 +275,12 @@ O `/build` lê o design e delega cada arquivo ao agente especialista certo, veri
 
 ---
 
-## Parte 5: Entrega (`/ship`)
+## Parte 5: Entrega (`/tecspec:workflow:ship`)
 
 Quando o build estiver pronto e aprovado por você:
 
 ```text
-/ship .claude/sdd/features/DEFINE_{FEATURE}.md
+/tecspec:workflow:ship .claude/sdd/features/DEFINE_{FEATURE}.md
 ```
 
 Os documentos da feature são arquivados em `.claude/sdd/archive/{FEATURE}/`, junto com um `SHIPPED_{DATA}.md` com as lições aprendidas.
@@ -289,15 +291,15 @@ Os documentos da feature são arquivados em `.claude/sdd/archive/{FEATURE}/`, ju
 
 | Comando | Para que serve |
 |---|---|
-| `/dev "tarefa"` | Dev Loop: monta um `PROMPT_*.md` e executa com verificação |
-| `/iterate` | Atualiza qualquer fase quando algo muda |
-| `/review` | Revisão de código dupla (CodeRabbit + Claude) |
-| `/judge` | Segunda opinião de outro modelo (precisa de `OPENROUTER_API_KEY`) |
-| `/commit` | Mensagem de commit no padrão Conventional Commits |
-| `/create-pr` | Pull request com descrição estruturada |
-| `/status` | Relatório de saúde do projeto |
-| `/readme-maker` | Gera um README a partir do código |
-| `/generate-web-diagram` | Diagrama HTML para explicar uma ideia |
+| `/tecspec:dev:dev "tarefa"` | Dev Loop: monta um `PROMPT_*.md` e executa com verificação |
+| `/tecspec:workflow:iterate` | Atualiza qualquer fase quando algo muda |
+| `/tecspec:review:review` | Revisão de código dupla (CodeRabbit + Claude) |
+| `/tecspec:review:judge` | Segunda opinião de outro modelo (precisa de `OPENROUTER_API_KEY`) |
+| `/tecspec:git:commit` | Mensagem de commit no padrão Conventional Commits |
+| `/tecspec:workflow:create-pr` | Pull request com descrição estruturada |
+| `/tecspec:core:status` | Relatório de saúde do projeto |
+| `/tecspec:core:readme-maker` | Gera um README a partir do código |
+| `/tecspec:visual-explainer:generate-web-diagram` | Diagrama HTML para explicar uma ideia |
 
 As fases do SDD aceitam `--judge` para pedir a segunda opinião do outro modelo (`--judge=strict` bloqueia em caso de reprovação).
 
@@ -344,7 +346,7 @@ unibh-agentspec/
 | Plugin TecSpec | [gitlab.tecnisys.com.br/publico/claude-code-toolkit](https://gitlab.tecnisys.com.br/publico/claude-code-toolkit) |
 | Agentes locais | [.claude/agents/README.md](.claude/agents/README.md) |
 | Claude Code | [claude.com/claude-code](https://claude.com/claude-code) |
-| Spec-Driven Development | Comandos `/brainstorm`, `/define`, `/design`, `/build` e `/ship` |
+| Spec-Driven Development | Comandos `/tecspec:workflow:brainstorm`, `/tecspec:workflow:define`, `/tecspec:workflow:design`, `/tecspec:workflow:build` e `/tecspec:workflow:ship` |
 
 ---
 
