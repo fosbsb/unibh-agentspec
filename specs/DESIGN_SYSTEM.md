@@ -2,7 +2,7 @@
 
 Fonte única de verdade do visual do totem. Toda tela, componente e estilo do projeto segue este documento. Os tokens daqui viram variáveis CSS em `app/static/css/tokens.css`.
 
-**Versão:** 1.0.0
+**Versão:** 1.1.0
 
 ---
 
@@ -33,7 +33,7 @@ Fonte única de verdade do visual do totem. Toda tela, componente e estilo do pr
 | `--cor-preto` | `#0D0D0D` | Fundo das telas |
 | `--cor-laranja` | `#FF7A00` | Cor da marca, ação principal, botões |
 | `--cor-amarelo` | `#FFC20E` | Destaque: preços, número do pedido, pedido pronto |
-| `--cor-vermelho` | `#D62828` | Cancelar, remover, erro |
+| `--cor-vermelho` | `#D62828` | Remover, erro |
 
 ### 3.2 Neutros de apoio
 
@@ -55,7 +55,7 @@ Fonte única de verdade do visual do totem. Toda tela, componente e estilo do pr
 | Texto laranja sobre preto | Rótulos e títulos de destaque | 7:1 |
 | Texto **preto** sobre laranja | Texto dos botões principais | 7:1 |
 | Texto **preto** sobre amarelo | Selo "Pronto", etiqueta de destaque | 12:1 |
-| Texto branco sobre vermelho | Botão "Cancelar" e "Remover" | 5:1 |
+| Texto branco sobre vermelho | Botão "Remover" | 5:1 |
 | Texto vermelho-claro sobre preto | Mensagem de erro | 6:1 |
 
 Proibido:
@@ -70,7 +70,7 @@ Proibido:
 | Recebido | `--cor-superficie-alta` | branco | 🕒 | Recebido |
 | Preparando | `--cor-laranja` | preto | 🔥 | Preparando |
 | Pronto | `--cor-amarelo` | preto | ✅ | Pronto |
-| Cancelado | `--cor-vermelho` | branco | ✖ | Cancelado |
+| Entregue | `--cor-superficie` | `--cor-texto-suave` | 📦 | Entregue |
 
 ---
 
@@ -86,7 +86,8 @@ Proibido:
 | `--fonte-preco` | `32px`, peso 800 | Preço |
 | `--fonte-pedido-totem` | `160px`, peso 900 | Número do pedido na confirmação |
 | `--fonte-pedido-painel` | `192px`, peso 900 | Pedido pronto em destaque no painel |
-| `--fonte-pedido-lista` | `72px`, peso 800 | Pedidos nas listas do painel |
+| `--fonte-pedido-lista` | `72px`, peso 800 | Pedidos em "Preparando" no painel |
+| `--fonte-pedido-pronto` | `120px`, peso 800 | Pedidos em "Pronto" no painel |
 
 Regras:
 - Números do pedido usam `font-variant-numeric: tabular-nums`.
@@ -133,7 +134,7 @@ Regra de movimento: todas as animações param quando o sistema tem `prefers-red
 |---|---|---|---|
 | Primário | `--cor-laranja` | preto | Ação principal da tela |
 | Secundário | transparente, borda laranja de 3px | laranja | Ação de apoio |
-| Perigo | `--cor-vermelho` | branco | Cancelar, remover item |
+| Perigo | `--cor-vermelho` | branco | Remover item |
 | Desabilitado | `--cor-superficie-alta` | `--cor-texto-suave` | Ação indisponível |
 
 Todos: altura mínima 80px no totem (44px na cozinha), raio `--raio-botao`, texto 28px peso 700.
@@ -149,11 +150,24 @@ Faixa fixa no topo com as categorias: Lanches, Crepes, Bebidas e Sobremesas. A a
 
 ### 6.4 Carrinho (totem)
 
-Barra fixa no rodapé com a quantidade de itens, o total em amarelo e o botão primário "Finalizar pedido". Cada linha do carrinho tem os botões "−" e "+" (80x80px) e o botão perigo "Remover".
+Barra fixa no rodapé do cardápio com a quantidade de itens, o total em amarelo e o botão primário "Revisar pedido" (desabilitado com o carrinho vazio). O rodapé mostra só o resumo. As linhas do carrinho ficam na tela de revisão (6.4.1).
+
+#### 6.4.1 Tela de revisão (totem)
+
+Tela cheia aberta por "Revisar pedido", antes de enviar o pedido.
+
+| Parte | Regra |
+|---|---|
+| Título | "Revise seu pedido", `--fonte-titulo`, laranja |
+| Linha do item | Cartão com ícone (64px), nome em `--fonte-produto`, subtotal da linha em amarelo, botões "−" e "+" (80x80px), quantidade e botão perigo "Remover" |
+| Rodapé fixo | Quantidade de itens, "Total" em amarelo e dois botões lado a lado: "Voltar ao cardápio" (secundário) e "Finalizar pedido" (primário) |
+| Remover o último item | Volta ao cardápio |
+| Erro | Mensagem padronizada (6.9) acima dos botões. Em falha de rede o botão primário vira "Tentar de novo". Se não houver senha livre, a mensagem é "Não há senhas disponíveis agora. Chame um atendente." e o botão primário fica desabilitado |
+| Inatividade | Os 30 segundos sem toque (seção 7) também valem aqui |
 
 ### 6.5 Confirmação do pedido (totem)
 
-Tela cheia com o número do pedido em `--fonte-pedido-totem`, amarelo, centralizado, e a frase "Retire no balcão quando o painel chamar". Volta sozinha à tela inicial após 8 segundos.
+Tela cheia com o rótulo "Sua senha", o número em `--fonte-pedido-totem`, amarelo, centralizado, e a frase "Retire no balcão quando o painel chamar". A senha tem 3 dígitos e começa com 1 (faixa de 100 a 199). Volta sozinha à tela inicial após 8 segundos.
 
 ### 6.6 Selo de estado do pedido
 
@@ -164,13 +178,13 @@ Cápsula com ícone e rótulo, nas cores da seção 3.4.
 | Área | Regra |
 |---|---|
 | Esquerda: "Preparando" | Título laranja. Lista de pedidos em `--fonte-pedido-lista`, branco |
-| Direita: "Pronto" | Título amarelo. Lista de pedidos em `--fonte-pedido-lista`, amarelo |
-| Pedido recém-pronto | Destaque em tela cheia por 6 segundos: fundo amarelo, número em preto com `--fonte-pedido-painel`, e a voz fala "Pedido 12, pronto" |
+| Direita: "Pronto" | Metade direita da tela com fundo `--cor-amarelo` de ponta a ponta. Título em `--fonte-titulo` e lista de pedidos em `--fonte-pedido-pronto`, texto preto (`--cor-preto`) |
+| Pedido recém-pronto | Destaque em tela cheia por 6 segundos: fundo amarelo, número em preto com `--fonte-pedido-painel`, e a voz fala "Senha 112, pronta". O destaque diz "Senha pronta" |
 | Rodapé | Tempo médio de preparo, `--cor-texto-suave`, 32px |
 
 ### 6.8 Fila da cozinha
 
-Cartões de pedido em ordem de chegada, com número, itens, horário e selo de estado. Botões: "Iniciar" (primário), "Marcar pronto" (primário), "Entregar" (secundário) e "Cancelar" (perigo).
+Cartões de pedido em ordem de chegada, com número, itens, horário e selo de estado. Botões: "Iniciar" (primário), "Marcar pronto" (primário) e "Entregar" (secundário). Pedidos entregues saem da fila.
 
 ### 6.9 Mensagem de erro
 
@@ -237,3 +251,4 @@ Os 10 produtos usados na demonstração. O ícone é um emoji, sem arquivos de i
 | Versão | Mudança |
 |---|---|
 | 1.0.0 | Versão inicial: paleta preto, laranja, amarelo e vermelho, e cardápio de exemplo |
+| 1.1.0 | Remove o estado "Cancelado" e o botão "Cancelar"; inclui o estado "Entregue" |

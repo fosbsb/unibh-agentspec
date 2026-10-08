@@ -334,6 +334,32 @@ unibh-agentspec/
 
 O **totem de autoatendimento** é construído passo a passo com as cinco fases acima. O [roteiro](roteiro/ROTEIRO.md) traz o prompt de cada etapa, o que esperar e como verificar.
 
+### Executar a demonstração
+
+```bash
+docker compose up --build
+```
+
+| Tela | Endereço | Dispositivo |
+|---|---|---|
+| Totem | http://localhost:8000/totem | Cliente, 1080x1920, só toque |
+| Cozinha | http://localhost:8000/cozinha | Atendente, desktop ou tablet |
+| Painel | http://localhost:8000/painel | TV 1920x1080 |
+
+- Sem login e sem build de frontend. O Tailwind vem do CDN, então a máquina precisa de internet.
+- Na TV, toque em **Ativar som** para liberar a voz do navegador.
+- `docker compose down` apaga os pedidos, e o próximo `up` recomeça só com o cardápio.
+- Ao atualizar uma versão antiga, rode `docker compose down` antes do `up`: o banco não tem volume e o `create_all` não altera tabelas existentes.
+- A senha do pedido tem 3 dígitos (100 a 199) e é reaproveitada depois que o pedido é entregue.
+- A demo não tem autenticação. Não a exponha na internet.
+
+**Testes** (sem Docker para o banco, com SQLite em memória; exige Python 3.10 ou superior):
+
+```bash
+pip install -r requirements.txt
+pytest
+```
+
 ---
 
 ## Documentação

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel de pedidos</title>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="icon" href="data:,">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/static/js/tailwind-config.js"></script>
+</head>
+<body class="select-none">
+  <div class="flex min-h-screen flex-col">
+    <main class="grid flex-1 grid-cols-2">
+      <section class="p-[var(--espaco-5)]">
+        <h1 class="titulo mb-[var(--espaco-3)] text-laranja">🔥 Preparando</h1>
+        <ul id="preparando" class="m-0 grid list-none grid-cols-2 gap-[var(--espaco-2)] p-0"></ul>
+      </section>
+      <section class="bg-amarelo p-[var(--espaco-5)] text-preto">
+        <h1 class="titulo mb-[var(--espaco-3)]">✅ Pronto</h1>
+        <ul id="pronto" class="m-0 grid list-none grid-cols-2 gap-[var(--espaco-2)] p-0"></ul>
+      </section>
+    </main>
+    <footer class="flex items-center justify-between border-t-2 border-borda px-[var(--espaco-5)] py-[var(--espaco-3)]">
+      <p id="tempo" class="suave m-0 text-[32px]"></p>
+      <button id="som" class="btn btn-secundario">Ativar som</button>
+    </footer>
+  </div>
+
+  <div id="destaque" class="sobreposicao-pronto" hidden role="alert">
+    <p class="m-0 text-[72px] font-extrabold">Senha pronta</p>
+    <p id="destaque-numero" class="numero-pedido m-0" style="font-size: var(--fonte-pedido-painel); font-weight: 900; line-height: 1;"></p>
+  </div>
+
+  <script type="module" src="/static/js/painel.js"></script>
+</body>
+</html>

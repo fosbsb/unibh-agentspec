@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cozinha</title>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="icon" href="data:,">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/static/js/tailwind-config.js"></script>
+</head>
+<body class="cozinha">
+  <header class="flex items-center justify-between p-[var(--espaco-3)]">
+    <h1 class="text-[32px] font-extrabold text-laranja">Fila da cozinha</h1>
+    <span id="contador" class="suave"></span>
+  </header>
+  <div id="erro" hidden class="erro mx-[var(--espaco-3)]" role="alert"></div>
+  <main id="fila" class="grid gap-[var(--espaco-2)] p-[var(--espaco-3)]" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));"></main>
+  <script type="module" src="/static/js/cozinha.js"></script>
+</body>
+</html>
