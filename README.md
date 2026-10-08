@@ -27,7 +27,7 @@ Nesta oficina, você aprende a construir software **a partir de uma especificaç
 O foco não é digitar menos código. É **decidir antes de codar** e deixar a IA executar com contexto, critérios de aceite e rastreabilidade.
 
 > [!NOTE]
-> **Projeto de exemplo.** O projeto que vamos construir ao longo da oficina será adicionado a este repositório. Até lá, este README explica o TecSpec e como usá-lo.
+> **Projeto de exemplo.** Ao longo da oficina construímos um totem de autoatendimento de lanchonete. O passo a passo está no [roteiro](roteiro/ROTEIRO.md) e o design system em [specs/DESIGN_SYSTEM.md](specs/DESIGN_SYSTEM.md).
 
 | Parte | O que você faz | Conceito |
 |---|---|---|
@@ -37,7 +37,7 @@ O foco não é digitar menos código. É **decidir antes de codar** e deixar a I
 | 3. Arquitetura | `/tecspec:workflow:design` | Decisões técnicas, plano de arquivos |
 | 4. Código | `/tecspec:workflow:build` | Execução com verificação |
 | 5. Entrega | `/tecspec:workflow:ship` | Arquivamento e lições aprendidas |
-| 6. Projeto de exemplo | *(será adicionado)* | Tudo junto |
+| 6. Projeto de exemplo | Totem de autoatendimento ([roteiro](roteiro/ROTEIRO.md)) | Tudo junto |
 
 ---
 
@@ -328,14 +328,11 @@ unibh-agentspec/
 └── README.md
 ```
 
-> [!NOTE]
-> A estrutura será atualizada quando o projeto de exemplo for adicionado.
-
 ---
 
 ## Projeto de exemplo
 
-*Em breve.* O projeto será construído passo a passo com as cinco fases acima, e cada parte terá seu "Como verificar" e "Se der erro", como nas seções anteriores.
+O **totem de autoatendimento** é construído passo a passo com as cinco fases acima. O [roteiro](roteiro/ROTEIRO.md) traz o prompt de cada etapa, o que esperar e como verificar.
 
 ---
 
@@ -346,7 +343,15 @@ unibh-agentspec/
 | Plugin TecSpec | [gitlab.tecnisys.com.br/publico/claude-code-toolkit](https://gitlab.tecnisys.com.br/publico/claude-code-toolkit) |
 | Agentes locais | [.claude/agents/README.md](.claude/agents/README.md) |
 | Claude Code | [claude.com/claude-code](https://claude.com/claude-code) |
+| Projeto AgentSpec (origem do fluxo SDD) | [github.com/luanmorenommaciel/agentspec](https://github.com/luanmorenommaciel/agentspec) |
+| Roteiro da oficina | [roteiro/ROTEIRO.md](roteiro/ROTEIRO.md) |
 | Spec-Driven Development | Comandos `/tecspec:workflow:brainstorm`, `/tecspec:workflow:define`, `/tecspec:workflow:design`, `/tecspec:workflow:build` e `/tecspec:workflow:ship` |
+
+---
+
+## Créditos
+
+O fluxo de Spec-Driven Development usado nesta oficina (brainstorm, define, design, build e ship) e a ideia de agentes especialistas com base de conhecimento vêm do projeto **AgentSpec**, de Luan Moreno M. Maciel: [github.com/luanmorenommaciel/agentspec](https://github.com/luanmorenommaciel/agentspec). O plugin TecSpec, usado aqui, é a versão distribuída pela Tecnisys.
 
 ---
 
